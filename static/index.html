@@ -16,7 +16,7 @@ form.onsubmit = async (e) => {
   ta.value = "考え中...";
   const res = await fetchJSON("/api", prompt);
   //ta.value = prompt + "\n\n" + res;
-  ta.value = res;
+  ta.value = res.trim();
   //q.value = "";
 };
 </script>
