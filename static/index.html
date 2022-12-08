@@ -2,7 +2,7 @@
 
 <h1>AIチャット - demo</h1>
 <form id=form><textarea id=q></textarea><br>
-<input type=submit value="AIに質問する"></form>
+<input type=submit value="AIに質問する"> <button id=btncls>クリア</button></form>
 <textarea id=ta>
 </textarea>
 
@@ -19,6 +19,7 @@ form.onsubmit = async (e) => {
   ta.value = res.trim();
   //q.value = "";
 };
+btncls = () => q.value = "";
 </script>
 
 <style>
