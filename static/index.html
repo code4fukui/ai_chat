@@ -1,28 +1,32 @@
 <!DOCTYPE html><html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width">
 
 <h1>AIチャット - demo</h1>
+<form id=form><textarea id=q></textarea><br>
+<input type=submit value="AIに質問する"></form>
 <textarea id=ta>
 </textarea>
-<form id=form><input id=q><input type=submit value="送信"></form>
 
 <script type="module">
 import { fetchJSON } from "https://js.sabae.cc/fetchJSON.js";
 
 form.onsubmit = async (e) => {
   e.preventDefault();
-  const prompt = ta.value + "\nHuman: " + q.value;
+  //const prompt = ta.value + "\nHuman: " + q.value;
+  const prompt = q.value;
+  ta.value = "考え中...";
   const res = await fetchJSON("/api", prompt);
-  ta.value = prompt + "\n\n" + res;
-  q.value = "";
+  //ta.value = prompt + "\n\n" + res;
+  ta.value = res;
+  //q.value = "";
 };
 </script>
 
 <style>
-#ta {
+textarea {
   width: 90vw;
-  height: 25em;
+  height: 18em;
 }
-#q {
-  width: 80vw;
+input[type=submit] {
+  margin: .5em 0;
 }
 </style>
