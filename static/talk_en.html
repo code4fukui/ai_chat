@@ -40,6 +40,7 @@ const startRecog = (onresult) => {
   recog = window.webkitSpeechRecognition ? new webkitSpeechRecognition() : new SpeechRecognition();
   console.log(recog);
   recog.continuous = true;
+  recog.lang = "en";
   recog.interimResults = true;
   recog.onresult = onresult;
   recog.start();
