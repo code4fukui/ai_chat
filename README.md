@@ -19,3 +19,8 @@ you can get the response
 ```
 Robot: I'm a robot.
 ```
+
+## blog
+
+- https://fukuno.jig.jp/3788
+- https://fukuno.jig.jp/3843
