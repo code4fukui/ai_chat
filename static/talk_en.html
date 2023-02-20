@@ -1,12 +1,12 @@
-<!DOCTYPE html><html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width">
-<title>AIチャットボイス</title>
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width">
+<title>AI chat voice</title>
 </head><body>
-<h1>AIチャットボイス</h1>
+<h1>AI chat voice</h1>
 <button id=btn></button>
 <div id=divinfo></div>
 <div id=divai></div>
 <hr>
-<a href=https://github.com/code4fukui/ai_chat/>src on GitHub</a> (<a href=./>simple version</a> / <a href=./talk_en.html>talk English version</a>)<br>
+<a href=https://github.com/code4fukui/ai_chat/>src on GitHub</a> (<a href=./>simple version</a> / <a href=./talk.html>talk Japanese version</a>)<br>
 <a href=https://openai.com/api/>OpenAI API</a><br>
 
 <script type="module">
@@ -32,8 +32,8 @@ const speech = async (s, ja = true) => {
   });
 };
 
-const textstart = "AIさんとの会話スタート";
-const textstop = "AIさんとの会話ストップ";
+const textstart = "start to talk with AI";
+const textstop = "stop to talk with AI";
 btn.textContent = textstart;
 
 const startRecog = (onresult) => {
@@ -65,10 +65,10 @@ btn.onclick = async () => {
     } else {
       divinfo.textContent = tscr;
       recog.stop();
-      divai.textContent = "考え中";
+      divai.textContent = "thinking...";
       const res = await fetchChat(tscr);
       divai.textContent = res;
-      await speech(res);
+      await speech(res, false);
       recog = startRecog(onresult);
     }
   };
@@ -77,11 +77,11 @@ btn.onclick = async () => {
 
 if (!window.webkitSpeechRecognition && !window.SpeechRecognition) {
   btn.disabled = true;
-  divinfo.textContent = "音声認識API非対応です";
+  divinfo.textContent = "not supported SpeechRecognition";
 }
 if (!window.SpeechSynthesisUtterance) {
   btn.disabled = true;
-  divinfo.textContent = "音声合成API非対応です";
+  divinfo.textContent = "not supported SpeechSynthesis";
 }
 </script>
 
