@@ -67,8 +67,10 @@ btn.onclick = async () => {
       divinfo.textContent = tscr;
       recog.stop();
       divai.textContent = "thinking...";
+      const r = speech(tscr, false); // repeat your talk
       const res = await fetchChat(tscr);
       divai.textContent = res;
+      await Promise.all([r]);
       await speech(res, false);
       recog = startRecog(onresult);
     }
