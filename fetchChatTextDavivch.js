@@ -1,6 +1,5 @@
 const KEY = (await Deno.readTextFile(".env")).substring("OPENAI_API_KEY=".length).trim();
 
-
 const fetchCompletions = async (req) => {
   const url = "https://api.openai.com/v1/completions";
   const opt = req ? {
@@ -17,10 +16,9 @@ const fetchCompletions = async (req) => {
   return res;
 };
 
-
 export const fetchChat = async (prompt) => {
   const req = {
-    //model: "text-davinci-003",
+    model: "text-davinci-003",
     model: "gpt-3.5-turbo",
     prompt,
     temperature: 0.9,
