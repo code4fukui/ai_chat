@@ -1,8 +1,11 @@
+import { DateTime } from "https://js.sabae.cc/DateTime.js";
+
+// https://platform.openai.com/docs/api-reference/chat/create
+
 const KEY = (await Deno.readTextFile(".env")).substring("OPENAI_API_KEY=".length).trim();
 
-
 const fetchCompletions = async (req) => {
-  const url = "https://api.openai.com/v1/completions";
+  const url = "https://api.openai.com/v1/chat/completions";
   const opt = req ? {
     method: "POST",
     mode: "cors",
@@ -17,20 +20,21 @@ const fetchCompletions = async (req) => {
   return res;
 };
 
+await Deno.mkdir("log", { recursive: true });
 
 export const fetchChat = async (prompt) => {
   const req = {
-    model: "text-davinci-003",
-    prompt,
-    temperature: 0.9,
-    max_tokens: 1921,
-    top_p: 1,
-    frequency_penalty: 0,
-    presence_penalty: 0.6,
-    stop: ["Human:", "Bot:"],
+    model: "gpt-3.5-turbo", // gpt-3.5-turbo and gpt-3.5-turbo-0301 are supported.
+    messages: [
+      { "role": "user", "content": prompt },
+    ],
   };
-  console.log(req);
+  //console.log(req);
   const res = await fetchCompletions(req);
-  console.log(res);
-  return res.choices[0].text;
+  //console.log(res);
+  const answer = res.choices[0].message.content;
+  const dt = new DateTime();
+  const data = { dt, prompt, answer };
+  await Deno.writeTextFile("log/" + dt.day.toString() + ".ndjson", JSON.stringify(data) + "\n");
+  return answer;
 };
