@@ -1,0 +1,38 @@
+<!DOCTYPE html><html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width">
+<title>AIコミュニティーマネージャー</title>
+<h1>AIコミュニティーマネージャー</h1>
+<form id=form><textarea id=q></textarea><br>
+<input type=submit value="レポートする"> <button id=btncls>クリア</button></form>
+<textarea id=ta>
+</textarea>
+<hr>
+<a href=https://github.com/code4fukui/ai_chat/>src on GitHub</a> (<a href=talk.html>talk version</a> / <a href=talk_en.html>talk English version</a>)<br>
+<a href=https://openai.com/api/>OpenAI API</a><br>
+
+
+<script type="module">
+import { fetchJSON } from "https://js.sabae.cc/fetchJSON.js";
+
+form.onsubmit = async (e) => {
+  e.preventDefault();
+  //const prompt = ta.value + "\nHuman: " + q.value;
+  const prompt = `下記のメッセージに好意的や発展的なアドバイスをください\n` + q.value;
+  ta.value = "レポート、ありがとう！\n...（書き込み中）";
+  const res = await fetchJSON("/api", prompt);
+  //ta.value = prompt + "\n\n" + res;
+  ta.value = res.trim();
+  //q.value = "";
+};
+btncls.onclick = () => q.value = "";
+</script>
+
+<style>
+textarea {
+  font-size: 16px;
+  width: 90vw;
+  height: 10em;
+}
+input[type=submit] {
+  margin: .5em 0;
+}
+</style>
