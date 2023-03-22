@@ -1,9 +1,10 @@
 import { DateTime } from "https://js.sabae.cc/DateTime.js";
 import { getEnv } from "./getEnv.js";
 
-// https://platform.openai.com/docs/api-reference/chat/create
 
 const KEY = await getEnv("OPENAI_API_KEY");
+
+// https://platform.openai.com/docs/api-reference/chat/create
 
 const fetchCompletions = async (req) => {
   const url = "https://api.openai.com/v1/chat/completions";
