@@ -4,7 +4,7 @@ You can have a conversation with a computer on your terminal.
 
 ## Usage
 
-[create a secret key](https://beta.openai.com/docs/quickstart/build-your-application) on [beta.openai.com](https://beta.openai.com/)
+[create a secret key](https://beta.openai.com/docs/quickstart/build-your-application) on [OpenAI API]([https://beta.openai.com/](https://platform.openai.com/account/api-keys))
 
 edit .env
 ```
@@ -15,6 +15,7 @@ or set the environment variables
 export OPENAI_API_KEY=****
 ```
 
+to run
 ```sh
 deno run -A ai.js "Who are you?"
 ```
