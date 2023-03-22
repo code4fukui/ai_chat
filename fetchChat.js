@@ -22,7 +22,12 @@ const fetchCompletions = async (req) => {
   return res;
 };
 
-await Deno.mkdir("log", { recursive: true });
+let allowlog = true;
+try {
+  await Deno.mkdir("log", { recursive: true });
+} catch (e) {
+  allowlog = false;
+}
 
 export const fetchChat = async (prompt) => {
   const req = {
@@ -35,6 +40,8 @@ export const fetchChat = async (prompt) => {
   const answer = res.choices[0].message.content;
   const dt = new DateTime();
   const data = { dt, prompt, answer };
-  await Deno.writeTextFile("log/" + dt.day.toString() + ".ndjson", JSON.stringify(data) + "\n");
+  if (allowlog) {
+    await Deno.writeTextFile("log/" + dt.day.toString() + ".ndjson", JSON.stringify(data) + "\n");
+  }
   return answer;
 };
