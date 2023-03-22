@@ -69,7 +69,7 @@ const DENO_BUF_SIZE = 32 * 1024;
 
 const readFilePartial = async (fn, offset, len) => {
   const f = await Deno.open(fn);
-  await Deno.seek(f.rid, offset, Deno.SeekMode.Start);
+  f.seek(offset, Deno.SeekMode.Start);
   const buf = new Uint8Array(len);
   const rbuf = new Uint8Array(DENO_BUF_SIZE);
   let off = 0;
