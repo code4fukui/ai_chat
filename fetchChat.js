@@ -1,8 +1,9 @@
 import { DateTime } from "https://js.sabae.cc/DateTime.js";
+import { getEnv } from "./getEnv.js";
 
 // https://platform.openai.com/docs/api-reference/chat/create
 
-const KEY = (await Deno.readTextFile(".env")).substring("OPENAI_API_KEY=".length).trim();
+const KEY = await getEnv("OPENAI_API_KEY");
 
 const fetchCompletions = async (req) => {
   const url = "https://api.openai.com/v1/chat/completions";
@@ -29,9 +30,7 @@ export const fetchChat = async (prompt) => {
       { "role": "user", "content": prompt },
     ],
   };
-  //console.log(req);
   const res = await fetchCompletions(req);
-  //console.log(res);
   const answer = res.choices[0].message.content;
   const dt = new DateTime();
   const data = { dt, prompt, answer };

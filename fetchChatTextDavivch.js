@@ -1,4 +1,6 @@
-const KEY = (await Deno.readTextFile(".env")).substring("OPENAI_API_KEY=".length).trim();
+import { getEnv } from "./getEnv.js";
+
+const KEY = await getEnv("OPENAI_API_KEY");
 
 const fetchCompletions = async (req) => {
   const url = "https://api.openai.com/v1/completions";
