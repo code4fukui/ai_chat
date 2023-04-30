@@ -15,7 +15,7 @@ or set the environment variables
 export OPENAI_API_KEY=****
 ```
 
-in app
+in app ([Deno](https://deno.land)/JavaScript)
 ```js
 import { fetchChat } from "https://code4fukui.github.io/ai_chat/fetchChat.js"
 console.log(await fetchChat("How about you?"));
