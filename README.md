@@ -15,9 +15,15 @@ or set the environment variables
 export OPENAI_API_KEY=****
 ```
 
-to run
+in app
+```js
+import { fetchChat } from "https://code4fukui.github.io/ai_chat/fetchChat.js"
+console.log(await fetchChat("How about you?"));
+```
+
+in command line
 ```sh
-deno run -A ai.js "Who are you?"
+deno run -A https://code4fukui.github.io/ai_chat/ai.js "Who are you?"
 ```
 
 you can get the response
