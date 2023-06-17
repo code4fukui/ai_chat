@@ -15,13 +15,25 @@ or set the environment variables
 export OPENAI_API_KEY=****
 ```
 
-in app ([Deno](https://deno.land)/JavaScript)
+### as a server and web app
+
+```sh
+deno run -A aichat.js
+```
+
+- http://localhost:8000/
+- http://localhost:8000/chat.html
+
+## as an API
+
+in [Deno](https://deno.land)
 ```js
 import { fetchChat } from "https://code4fukui.github.io/ai_chat/fetchChat.js"
 console.log(await fetchChat("How about you?"));
 ```
 
-in command line
+## as a command
+
 ```sh
 deno run -A https://code4fukui.github.io/ai_chat/ai.js "Who are you?"
 ```
@@ -36,3 +48,4 @@ Robot: I'm a robot.
 - https://fukuno.jig.jp/3788
 - https://fukuno.jig.jp/3843
 - https://fukuno.jig.jp/3892
+- https://fukuno.jig.jp/3978
