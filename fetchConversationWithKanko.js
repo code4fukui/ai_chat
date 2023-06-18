@@ -34,8 +34,12 @@ const funcs = {
         shuffle(data);
         const info = data.filter(d => {
           const p = param.place;
-          //return d.回答エリア.indexOf(p) >= 0 || d.市町村.indexOf(p) >= 0 || d.満足度の理由.indexOf(p) >= 0;
-          return (d.市町村.indexOf(p) >= 0 || d.回答エリア.indexOf(p) >= 0) && d.満足度の理由.length > 20;
+          return (
+            d.市町村.indexOf(p) >= 0 || 
+            d.回答エリア.indexOf(p) >= 0 || 
+            d.満足度の理由.indexOf(p) >= 0 ||
+            d["満足度(商品・サービス)の理由"].indexOf(p) >= 0
+          ) && d.満足度の理由.length > 20;
         });
         console.log(param.place, info.length + " / " + data.length);
         if (info.length == 0) {
