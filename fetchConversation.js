@@ -17,14 +17,15 @@ export const fetchConversation = async (messages, funcs) => {
       functions.push({ name, ...val.definition });
     }
   }
-  const len = new TextEncoder().encode(JSON.stringify(messages) + JSON.stringify(functions)).length;
   const req = {
-    model: len > 4000 ? "gpt-3.5-turbo-16k-0613" : "gpt-3.5-turbo-0613", // gpt-3.5-turbo-16k or gpt-3.5-turbo and gpt-3.5-turbo-0301 are supported.
     messages,
     functions,
   };
   const comp = async () => {
     for (;;) {
+      const len = new TextEncoder().encode(JSON.stringify(messages) + JSON.stringify(functions)).length;
+      console.log(len);
+      req.model = len > 3000 ? "gpt-3.5-turbo-16k-0613" : "gpt-3.5-turbo-0613"; // gpt-3.5-turbo-16k or gpt-3.5-turbo and gpt-3.5-turbo-0301 are supported.
       const res = await fetchCompletions(req);
       if (res.error) {
         return "error: " + res.error.message;
