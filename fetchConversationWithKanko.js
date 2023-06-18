@@ -6,7 +6,7 @@ import { shuffle } from "https://js.sabae.cc/shuffle.js";
 const funcs = {
   getLatestSurvey: {
     definition: {
-      description: "福井県内の指定観光地の評判をCSVデータ取得する",
+      description: "福井県内の指定観光地の評判を福井県観光アンケートオープンデータから、CSVデータで取得する",
       parameters: {
         type: "object",
         properties: {
