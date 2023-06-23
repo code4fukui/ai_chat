@@ -5,7 +5,6 @@
 <div id=body>
 
 <h1>AIチャット</h1>
-<form id=form>
 AIの設定
 <select id=selsys>
   <option value="">AIの設定を変更できます</option>
@@ -14,7 +13,7 @@ AIの設定
   <option>大学の教授の用に厳格に堅い文章で回答してください</option>
   <option>語尾を「にゃん」にしてかわいく、短く回答してください</option>
   <option value="other">その他（自由に記述してください）</option>
-</select>
+</select><button id=btnclear>会話クリア</button>
 <br>
 <textarea id=sys style="display:none"></textarea>
 <div id=view></div>
@@ -22,6 +21,7 @@ AIの設定
 </div>
 
 <div id=bottom>
+<form id=form>
 <input type=text id=q placeholder="AIへの会話をここに書きます" autocomplete="off">
 <input type=submit value="送信"><br>
 <!--<button id=btncls>クリア</button>-->
@@ -91,6 +91,10 @@ selsys.onchange = () => {
     sys.style.display = "none";
   }
 };
+btnclear.onclick = () => {
+  alert(3)
+  view.innerHTML = "";
+};
 </script>
 
 <style>
@@ -105,6 +109,9 @@ textarea {
   font-size: 16px;
   width: 90vw;
   height: 5em;
+}
+select {
+  margin-right: .5em;
 }
 input[type=text] {
   padding: .5em .5em;
