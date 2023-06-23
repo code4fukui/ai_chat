@@ -22,7 +22,6 @@ deno run -A aichat.js
 ```
 
 - http://localhost:8000/
-- http://localhost:8000/chat.html
 
 ## as an API
 
