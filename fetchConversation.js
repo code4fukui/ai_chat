@@ -10,6 +10,8 @@ const parseJSON = (s) => {
 };
 
 export const fetchConversation = async (messages, funcs) => {
+  const maxloop = 5;
+
   let functions = undefined;
   if (funcs) {
     functions = [];
@@ -22,10 +24,13 @@ export const fetchConversation = async (messages, funcs) => {
     functions,
   };
   const comp = async () => {
-    for (;;) {
+    for (let i = 0; i < maxloop; i++) {
       const len = new TextEncoder().encode(JSON.stringify(messages) + JSON.stringify(functions)).length;
       //console.log(len);
-      req.model = len > 3000 ? "gpt-3.5-turbo-16k-0613" : "gpt-3.5-turbo-0613"; // gpt-3.5-turbo-16k or gpt-3.5-turbo and gpt-3.5-turbo-0301 are supported.
+      //req.model = len > 3000 ? "gpt-3.5-turbo-16k-0613" : "gpt-3.5-turbo-0613"; // gpt-3.5-turbo-16k or gpt-3.5-turbo and gpt-3.5-turbo-0301 are supported.
+      req.model = "gpt-4-0613"; // ok
+      //req.model = "gpt-4-0314"; // ChatGPT4を認識していない？
+      //req.model = "gpt-4"; // 料金30倍 API使用ok
       const res = await fetchCompletions(req);
       if (res.error) {
         return "error: " + res.error.message;
