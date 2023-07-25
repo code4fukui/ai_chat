@@ -1,5 +1,5 @@
-import { fetchCompletions, log } from "./openai.js";
 import { DateTime } from "https://js.sabae.cc/DateTime.js";
+import { fetchCompletions, log } from "./openai.js";
 
 const parseJSON = (s) => {
   try {
@@ -9,7 +9,7 @@ const parseJSON = (s) => {
   return null;
 };
 
-export const fetchConversation = async (messages, funcs) => {
+export const fetchConversation = async (messages, funcs, useGPT3 = false) => {
   const maxloop = 5;
 
   let functions = undefined;
@@ -30,7 +30,8 @@ export const fetchConversation = async (messages, funcs) => {
       //req.model = len > 3000 ? "gpt-3.5-turbo-16k-0613" : "gpt-3.5-turbo-0613"; // gpt-3.5-turbo-16k or gpt-3.5-turbo and gpt-3.5-turbo-0301 are supported.
       //req.model = "gpt-4-0613"; // ok
       //req.model = "gpt-4-0314"; // ChatGPT4を認識していない？
-      req.model = "gpt-4"; // 料金30倍 API使用ok
+      //req.model = "gpt-4"; // 料金30倍 API使用ok
+      req.model = useGPT3 ? len > 3000 ? "gpt-3.5-turbo-16k-0613" : "gpt-3.5-turbo-0613" : "gpt-4";
       const res = await fetchCompletions(req);
       if (res.error) {
         return "error: " + res.error.message;
