@@ -44,7 +44,12 @@ Robot: I'm a robot.
 
 ## Fine-tuning
 
-prepare JSONL data for fine-tuning [finetune-ichigo.jsonl](finetune-ichigo.jsonl)
+prepare JSONL data for fine-tuning [finetune-ichigo.csv](finetune-ichigo.csv)
+
+```sh
+deno run -A csv2jsonl.js finetune-ichigo.csv finetune-ichigo.jsonl
+```
+→ [finetune-ichigo.jsonl](finetune-ichigo.jsonl)
 
 ```sh
 OPENAI_API_KEY=xxx
