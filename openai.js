@@ -33,7 +33,7 @@ try {
 }
 export const log = async (dt, data) => {
   if (allowlog) {
-    await Deno.writeTextFile("log/" + dt.day.toString() + ".ndjson", JSON.stringify(data) + "\n");
+    await Deno.writeTextFile("log/" + dt.day.toString() + ".jsonl", JSON.stringify(data) + "\n", { append: true });
   }
 };
 
