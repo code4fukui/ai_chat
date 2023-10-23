@@ -1,0 +1,28 @@
+<!DOCTYPE html><html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width"><link rel="icon" href="data:">
+<title>OpenAI API models</title>
+</head><body>
+<h1>OpenAI API models</h1>
+<main id=main></main>
+
+<script type="module">
+import { CSV } from "https://js.sabae.cc/CSV.js";
+
+const url = "./api/models";
+const data = await (await fetch(url)).json();
+const csv = CSV.fromJSON(data.filter(d => !d.model.startsWith("ft:")));
+main.appendChild(CSV.makeTable(csv));
+</script>
+
+<style>
+table {
+  border-collapse: collapse;
+}
+td, th {
+  border: 1px solid black;
+  padding: .3em;
+}
+</style>
+<hr>
+<a href=https://platform.openai.com/docs/api-reference>API Reference - OpenAI API</a><br>
+<a href=https://github.com/code4fukui/ai_chat/>src on GitHub</a><br>
+
