@@ -14,6 +14,7 @@ AIの設定
   <option>語尾を「にゃん」にしてかわいく、短く回答してください</option>
   <option value="other">その他（自由に記述してください）</option>
 </select><button id=btnclear>会話クリア</button>
+モデル <select id=selmodel></select>
 <br>
 <textarea id=sys style="display:none"></textarea>
 <div id=view></div>
@@ -33,6 +34,25 @@ AIの設定
 <script type="module">
 import { fetchJSON } from "https://js.sabae.cc/fetchJSON.js";
 import { sleep } from "https://js.sabae.cc/sleep.js";
+
+const models = [
+  "gpt-3.5-turbo-instruct-0914,Fri Sep 08 2023 06:34:32 GMT+0900 (日本標準時)",
+  "gpt-3.5-turbo-instruct,Fri Aug 25 2023 03:23:47 GMT+0900 (日本標準時)",
+  "gpt-4,Wed Jun 28 2023 01:13:31 GMT+0900 (日本標準時)",
+  "gpt-4-0314,Wed Jun 28 2023 01:13:30 GMT+0900 (日本標準時)",
+  "gpt-4-0613,Tue Jun 13 2023 01:54:56 GMT+0900 (日本標準時)",
+  "gpt-3.5-turbo-0613,Tue Jun 13 2023 01:30:34 GMT+0900 (日本標準時)",
+  "gpt-3.5-turbo-16k-0613,Wed May 31 2023 04:17:27 GMT+0900 (日本標準時)",
+  "gpt-3.5-turbo-16k,Thu May 11 2023 07:35:02 GMT+0900 (日本標準時)",
+  "gpt-3.5-turbo-0301,Wed Mar 01 2023 14:52:43 GMT+0900 (日本標準時)",
+  "gpt-3.5-turbo,Wed Mar 01 2023 03:56:42 GMT+0900 (日本標準時)",
+];
+
+for (const model of models) {
+  const op = document.createElement("option");
+  op.textContent = model.split(",")[0];
+  selmodel.appendChild(op);
+}
 
 form.onsubmit = async (e) => {
   e.preventDefault();
@@ -68,7 +88,8 @@ form.onsubmit = async (e) => {
   messages.unshift({ "role": "system", "content": sys.value });
   console.log(messages);
   
-  const res = await fetchJSON("/api/conversation", messages);
+  const model = selmodel.value;
+  const res = await fetchJSON("/api/conversation", { messages, model });
   const div2 = document.createElement("div");
   div2.className = "assistant";
   const ss = res.split("\n\n");
