@@ -1,4 +1,5 @@
 import { getEnv } from "./getEnv.js";
+import { DateTime } from "https://js.sabae.cc/DateTime.js";
 
 const KEY = await getEnv("OPENAI_API_KEY");
 
@@ -20,7 +21,15 @@ export const fetchAPI = async (url, req) => {
 };
 
 export const fetchCompletions = async (req) => {
-  const url = "https://api.openai.com/v1/chat/completions";
+  const urlNew = "https://api.openai.com/v1/chat/completions";
+  const urlLegacy = "https://api.openai.com/v1/completions";
+  const legacies = ["gpt-3.5-turbo-instruct", "gpt-3.5-turbo-instruct-0914", "babbage-002", "davinci-002"];
+  const url = legacies.indexOf(req.model) >= 0 ? urlLegacy : urlNew;
+  if (url == urlLegacy) {
+    req.prompt = req.messages.map(s => s.content).filter(s => s);
+    delete req.messages;
+    req.max_tokens = 3000;
+  }
   const res = await fetchAPI(url, req);
   return res;
 };
@@ -38,5 +47,8 @@ export const log = async (dt, data) => {
 };
 
 export const getModels = async () => {
-  return await fetchAPI("https://api.openai.com/v1/models");
+  const models = await fetchAPI("https://api.openai.com/v1/models");
+  const data = models.data.sort((a, b) => b.created - a.created);
+  const res = data.map(m => ({ model: m.id, created: new DateTime(m.created * 1000) }));
+  return res;
 };

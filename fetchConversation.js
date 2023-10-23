@@ -9,7 +9,7 @@ const parseJSON = (s) => {
   return null;
 };
 
-export const fetchConversation = async (messages, funcs, useGPT3 = false) => {
+export const fetchConversation = async (messages, funcs, useGPT3 = false) => { // messages: [] or { messages, model }
   const maxloop = 5;
 
   let functions = undefined;
@@ -22,7 +22,16 @@ export const fetchConversation = async (messages, funcs, useGPT3 = false) => {
   const req = {
     messages,
     functions,
+    model: "gpt-4",
   };
+  if (!req.functions) {
+    delete req.functions;
+  }
+  if (messages.messages && messages.model) {
+    req.messages = messages.messages;
+    req.model = messages.model;
+  }
+  console.log(req);
   const comp = async () => {
     for (let i = 0; i < maxloop; i++) {
       const len = new TextEncoder().encode(JSON.stringify(messages) + JSON.stringify(functions)).length;
@@ -31,10 +40,16 @@ export const fetchConversation = async (messages, funcs, useGPT3 = false) => {
       //req.model = "gpt-4-0613"; // ok
       //req.model = "gpt-4-0314"; // ChatGPT4を認識していない？
       //req.model = "gpt-4"; // 料金30倍 API使用ok
-      req.model = useGPT3 ? len > 3000 ? "gpt-3.5-turbo-16k-0613" : "gpt-3.5-turbo-0613" : "gpt-4";
+      if (useGPT3) {
+        req.model = len > 3000 ? "gpt-3.5-turbo-16k-0613" : "gpt-3.5-turbo-0613";
+      }
       const res = await fetchCompletions(req);
       if (res.error) {
         return "error: " + res.error.message;
+      }
+      console.log(res);
+      if (res.choices[0].text) {
+        return res.choices[0].text.trim();
       }
       const fc = res.choices[0].message.function_call;
       if (!fc) {
