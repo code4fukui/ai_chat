@@ -23,7 +23,7 @@ AIの設定
 
 <div id=bottom>
 <form id=form>
-<input type=text id=q placeholder="AIへの会話をここに書きます" autocomplete="off">
+<textarea id=q placeholder="AIへの会話をここに書きます" autocomplete="off"></textarea>
 <input type=submit value="送信"><br>
 <!--<button id=btncls>クリア</button>-->
 </form>
@@ -36,9 +36,11 @@ import { fetchJSON } from "https://js.sabae.cc/fetchJSON.js";
 import { sleep } from "https://js.sabae.cc/sleep.js";
 
 const models = [
+  "gpt-4-1106-preview",
   "gpt-4,Wed Jun 28 2023 01:13:31 GMT+0900 (日本標準時)",
   "gpt-4-0314,Wed Jun 28 2023 01:13:30 GMT+0900 (日本標準時)",
   "gpt-4-0613,Tue Jun 13 2023 01:54:56 GMT+0900 (日本標準時)",
+  "gpt-3.5-turbo-1106",
   "gpt-3.5-turbo-0613,Tue Jun 13 2023 01:30:34 GMT+0900 (日本標準時)",
   "gpt-3.5-turbo-16k-0613,Wed May 31 2023 04:17:27 GMT+0900 (日本標準時)",
   "gpt-3.5-turbo-16k,Thu May 11 2023 07:35:02 GMT+0900 (日本標準時)",
@@ -133,15 +135,17 @@ textarea {
 select {
   margin-right: .5em;
 }
-input[type=text] {
+#q {
   padding: .5em .5em;
-  margin: .5em 0;
+  margin: .5em 0 0 0;
   width: 80%;
   font-size: 16px;
+  resize: none;
 }
 input[type=submit] {
-  margin: .5em 0;
+  margin: 3em 0;
   padding: .3em;
+  vertical-align: top;
 }
 .user, .assistant {
   white-space: pre-wrap;
