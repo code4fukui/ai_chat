@@ -31,7 +31,6 @@ export const fetchConversation = async (messages, funcs, useGPT3 = false) => { /
     req.messages = messages.messages;
     req.model = messages.model;
   }
-  console.log(req);
   const comp = async () => {
     for (let i = 0; i < maxloop; i++) {
       const len = new TextEncoder().encode(JSON.stringify(messages) + JSON.stringify(functions)).length;
@@ -47,7 +46,6 @@ export const fetchConversation = async (messages, funcs, useGPT3 = false) => { /
       if (res.error) {
         return "error: " + res.error.message;
       }
-      console.log(res);
       if (res.choices[0].text) {
         return res.choices[0].text.trim();
       }
