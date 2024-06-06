@@ -5,6 +5,7 @@ import { fetchConversationWithKanko } from "./fetchConversationWithKanko.js";
 import { fetchConversationByModel } from "./fetchConversationByModel.js";
 import { getModels } from "./openai.js";
 import { fetchImageRecog } from "https://code4fukui.github.io/openai-imagerecog/fetchImageRecog.js"
+import { fetchSpeech } from "https://code4fukui.github.io/openai-speech/fetchSpeech.js"
 
 serveAPI("/api", async (param, req, path) => {
   if (path == "/api/conversation") {
@@ -17,6 +18,8 @@ serveAPI("/api", async (param, req, path) => {
     return await getModels();
   } else if (path == "/api/imagerecog") {
     return await fetchImageRecog(param.imgbin, param.prompt);
+  } else if (path == "/api/speech") {
+    return await fetchSpeech(param.txt, { voice: param.voice, speed: param.speed });
   }
   return await fetchChat(param);
 });
