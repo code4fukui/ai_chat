@@ -100,6 +100,13 @@ deno run -A fetchConversationByModel.example.js ft:gpt-3.5-turbo-0613:jig-jp::7r
 いちごくんだよ
 ```
 
+## get models
+
+```sh
+deno test -A getModels.test.js
+```
+edit models in static/chat.html
+
 ## blog
 
 - https://fukuno.jig.jp/3788

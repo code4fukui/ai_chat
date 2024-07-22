@@ -22,7 +22,8 @@ export const fetchConversation = async (messages, funcs, useGPT3 = false) => { /
   const req = {
     messages,
     functions,
-    model: "gpt-4o",
+    //model: "gpt-4o",
+    model: "gpt-4o-mini",
   };
   if (!req.functions) {
     delete req.functions;
