@@ -1,5 +1,7 @@
 # ai_chat
 
+> 日本語のREADMEはこちらです: [README.ja.md](README.ja.md)
+
 You can have a conversation with a computer on your terminal.
 
 ## Usage

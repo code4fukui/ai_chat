@@ -6,13 +6,9 @@
 
 [OpenAI API](https://platform.openai.com/account/api-keys)で[シークレットキーを作成](https://beta.openai.com/docs/quickstart/build-your-application)してください。
 
-.envを編集する
+.envを編集するか、環境変数を設定してください。
 ```
 OPENAI_API_KEY=****
-```
-もしくは環境変数を設定する
-```
-export OPENAI_API_KEY=****
 ```
 
 ### サーバー・Webアプリとして
@@ -51,28 +47,17 @@ deno run -A csv2jsonl.js finetune-ichigo.csv finetune-ichigo.jsonl
 ```
 → [finetune-ichigo.jsonl](finetune-ichigo.jsonl)
 
+OpenAI APIキーを設定
 ```sh
 OPENAI_API_KEY=xxx
 ```
 
+ファイルをアップロード
 ```sh
 curl https://api.openai.com/v1/files \
   -H "Authorization: Bearer $OPENAI_API_KEY" \
   -F "purpose=fine-tune" \
   -F "file=@finetune-ichigo.jsonl"
-```
-
-```json
-{
-  "object": "file",
-  "id": "file-WsnxhG58m7Qo68BgSUgD1gJI",
-  "purpose": "fine-tune",
-  "filename": "finetune-ichigo.jsonl",
-  "bytes": 1349,
-  "created_at": 1692877794,
-  "status": "uploaded",
-  "status_details": null
-}
 ```
 
 idをtraining_fileとして使う
@@ -85,11 +70,6 @@ curl https://api.openai.com/v1/fine_tuning/jobs \
     "model": "gpt-3.5-turbo-0613"
   }'
 ```
-
-```json
-{"object":"fine_tuning.job","id":"ftjob-eGRlppKIHD5z1xfTqvmfe292","model":"gpt-3.5-turbo-0613","created_at":1692873565,"finished_at":1692873878,"fine_tuned_model":"ft:gpt-3.5-turbo-0613:jig-jp::7r27I7v8","organization_id":"org-b5mP73M0cMHYNDm2HLCrFmBV","result_files":["file-7MhFfu8BMjn0VbP7ll0yxUlQ"],"status":"succeeded","validation_file":null,"training_file":"file-689IQ8t6U10cbeZaDAx0pvJD","hyperparameters":{"n_epochs":10},"trained_tokens":2680}
-```
-finished_atが有効になるまで待つ
 
 fine_tuned_modelをmodelとして使う
 ```sh
