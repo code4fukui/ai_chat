@@ -106,3 +106,5 @@ deno run -A fetchConversationByModel.example.js ft:gpt-3.5-turbo-0613:jig-jp::7r
 - https://fukuno.jig.jp/3843
 - https://fukuno.jig.jp/3892
 - https://fukuno.jig.jp/3978
+
+MIT License — see [LICENSE](LICENSE).
