@@ -1,23 +1,21 @@
 # ai_chat
 
-> 日本語のREADMEはこちらです: [README.ja.md](README.ja.md)
+ターミナル上でコンピュータと会話できます。
 
-You can have a conversation with a computer on your terminal.
+## 使い方
 
-## Usage
+[OpenAI API](https://platform.openai.com/account/api-keys) で[シークレットキーを作成](https://beta.openai.com/docs/quickstart/build-your-application)します。
 
-[Create a secret key](https://beta.openai.com/docs/quickstart/build-your-application) on [OpenAI API](https://platform.openai.com/account/api-keys)
-
-Edit `.env`:
+`.env` を編集します:
 ```
 OPENAI_API_KEY=****
 ```
-or set the environment variables:
+または環境変数を設定します:
 ```
 export OPENAI_API_KEY=****
 ```
 
-### As a server and web app
+### サーバーおよびWebアプリとして
 
 ```sh
 deno run -A aichat.js
@@ -25,28 +23,28 @@ deno run -A aichat.js
 
 - http://localhost:8000/
 
-## As an API
+## APIとして
 
-In [Deno](https://deno.land):
+[Deno](https://deno.land) の場合:
 ```js
 import { fetchChat } from "https://code4fukui.github.io/ai_chat/fetchChat.js"
 console.log(await fetchChat("How about you?"));
 ```
 
-## As a command
+## コマンドとして
 
 ```sh
 deno run -A https://code4fukui.github.io/ai_chat/ai.js "Who are you?"
 ```
 
-You can get the response:
+以下のようなレスポンスが得られます:
 ```
 Robot: I'm a robot.
 ```
 
-## Fine-tuning
+## ファインチューニング
 
-Prepare JSONL data for fine-tuning: [finetune-ichigo.csv](finetune-ichigo.csv)
+ファインチューニング用のJSONLデータを準備します: [finetune-ichigo.csv](finetune-ichigo.csv)
 
 ```sh
 deno run -A csv2jsonl.js finetune-ichigo.csv finetune-ichigo.jsonl
@@ -77,7 +75,7 @@ curl https://api.openai.com/v1/files \
 }
 ```
 
-Use the ID as `training_file`:
+取得したIDを `training_file` として使用します:
 ```sh
 curl https://api.openai.com/v1/fine_tuning/jobs \
   -H "Content-Type: application/json" \
@@ -92,7 +90,7 @@ curl https://api.openai.com/v1/fine_tuning/jobs \
 {"object":"fine_tuning.job","id":"ftjob-eGRlppKIHD5z1xfTqvmfe292","model":"gpt-3.5-turbo-0613","created_at":1692873565,"finished_at":1692873878,"fine_tuned_model":"ft:gpt-3.5-turbo-0613:jig-jp::7r27I7v8","organization_id":"org-b5mP73M0cMHYNDm2HLCrFmBV","result_files":["file-7MhFfu8BMjn0VbP7ll0yxUlQ"],"status":"succeeded","validation_file":null,"training_file":"file-689IQ8t6U10cbeZaDAx0pvJD","hyperparameters":{"n_epochs":10},"trained_tokens":2680}
 ```
 
-Wait for `finished_at` to be valid, then use `fine_tuned_model` as the model:
+`finished_at` に値が入る（完了する）まで待ち、`fine_tuned_model` をモデルとして使用します:
 ```sh
 deno run -A fetchConversationByModel.example.js ft:gpt-3.5-turbo-0613:jig-jp::7r27I7v8 お名前は？
 ```
@@ -101,10 +99,10 @@ deno run -A fetchConversationByModel.example.js ft:gpt-3.5-turbo-0613:jig-jp::7r
 いちごくんだよ
 ```
 
-## Blog
+## ブログ
 - https://fukuno.jig.jp/3788
 - https://fukuno.jig.jp/3843
 - https://fukuno.jig.jp/3892
 - https://fukuno.jig.jp/3978
 
-MIT License — see [LICENSE](LICENSE).
+MIT License — 詳細は [LICENSE](LICENSE) を参照してください。
